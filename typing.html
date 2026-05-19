@@ -73,7 +73,6 @@
         .btn-download:hover { background: #1d4ed8; transform: translateY(-2px); }
         .btn-download:active { transform: translateY(2px); box-shadow: none; }
 
-        /* 🎆 폭죽 파티클 스타일 */
         .particle { position: fixed; pointer-events: none; width: 8px; height: 8px; border-radius: 50%; z-index: 999; }
     </style>
 </head>
@@ -87,6 +86,23 @@
     </div>
 
     <div class="squad-stage" id="squad-stage">
+        <div class="char-card" id="card-0"><div class="char-avatar">🐻</div></div>
+        <div class="char-card" id="card-1"><div class="char-avatar">🐱</div></div>
+        <div class="char-card" id="card-2"><div class="char-avatar">🐹</div></div>
+        <div class="char-card" id="card-3"><div class="char-avatar">🦝</div></div>
+        <div class="char-card" id="card-4"><div class="char-avatar">🐰</div></div>
+        <div class="char-card" id="card-5"><div class="char-avatar">🦫</div></div>
+        <div class="char-card" id="card-6"><div class="char-avatar">🐯</div></div>
+        <div class="char-card" id="card-7"><div class="char-avatar">🦁</div></div>
+        
+        <div class="char-card" id="card-8"><div class="char-avatar">🐶</div></div>
+        <div class="char-card" id="card-9"><div class="char-avatar">⚡</div></div>
+        <div class="char-card" id="card-10"><div class="char-avatar">😈</div></div>
+        <div class="char-card" id="card-11"><div class="char-avatar">🦉</div></div>
+        <div class="char-card" id="card-12"><div class="char-avatar">🍳</div></div>
+        <div class="char-card" id="card-13"><div class="char-avatar">🔥</div></div>
+        <div class="char-card" id="card-14"><div class="char-avatar">🐢</div></div> <div class="char-card" id="card-15"><div class="char-avatar">🐧</div></div>
+        
         <div class="evo-tag-wrapper" id="tag-wrap-id">
             <div class="evo-tag" id="evo-name">올스타 디펜스 스쿼드 (남은 생명: 16)</div>
         </div>
@@ -128,178 +144,63 @@
         {r: "wear", p: "wore", pp: "worn"}, {r: "choose", p: "chose", pp: "chosen"}
     ];
 
-    const emojiPool = ["🐻", "🐱", "🐹", "🦝", "🐰", "🦫", "🐯", "🦁", "🐶", "⚡", "😈", "🦉", "🍳", "🔥", "TURTLE", "🐧"];
+    const emojiPool = ["🐻", "🐱", "🐹", "🦝", "🐰", "🦫", "🐯", "🦁", "🐶", "⚡", "😈", "🦉", "🍳", "🔥", "🐢", "🐧"];
     let curIdx = 0, score = 0, lives = 16, targetDeleteId = null, wrongVerbsList = [];
     let audioCtx = null;
 
-    function initAudio() {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    }
+    function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
 
     function playSound(type) {
-        initAudio();
-        if (!audioCtx) return;
-        
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-
+        initAudio(); if (!audioCtx) return;
+        const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
         if (type === 'correct') {
-            const now = audioCtx.currentTime;
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(523.25, now);
-            osc.frequency.setValueAtTime(659.25, now + 0.1);
-            osc.frequency.setValueAtTime(783.99, now + 0.2);
-            gain.gain.setValueAtTime(0.3, now);
-            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
-            osc.start(now);
-            osc.stop(now + 0.4);
+            const now = audioCtx.currentTime; osc.type = 'triangle';
+            osc.frequency.setValueAtTime(523.25, now); osc.frequency.setValueAtTime(659.25, now + 0.1); osc.frequency.setValueAtTime(783.99, now + 0.2);
+            gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+            osc.start(now); osc.stop(now + 0.4);
         } else if (type === 'wrong') {
-            const now = audioCtx.currentTime;
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(120, now);
-            osc.frequency.linearRampToValueAtTime(40, now + 0.5);
-            gain.gain.setValueAtTime(0.5, now);
-            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
-            osc.start(now);
-            osc.stop(now + 0.6);
+            const now = audioCtx.currentTime; osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(120, now); osc.frequency.linearRampToValueAtTime(40, now + 0.5);
+            gain.gain.setValueAtTime(0.5, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+            osc.start(now); osc.stop(now + 0.6);
         }
     }
 
     function createFireworks() {
-        const colors = ['#ff0055', '#00ffcc', '#ffcc00', '#22ff00', '#0022ff', '#ff00ff'];
-        const container = document.body;
-        
+        const colors = ['#ff0055', '#00ffcc', '#ffcc00', '#22ff00', '#0022ff', '#ff00ff']; const container = document.body;
         for (let i = 0; i < 40; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            
-            p.style.left = '50vw';
-            p.style.top = '40vh';
-            container.appendChild(p);
-
-            const angle = Math.random() * Math.PI * 2;
-            const velocity = 5 + Math.random() * 15;
-            const xForce = Math.cos(angle) * velocity;
-            const yForce = Math.sin(angle) * velocity;
-
-            let x = window.innerWidth / 2;
-            let y = window.innerHeight * 0.4;
-            let opacity = 1;
-
-            function animateParticle() {
-                x += xForce;
-                y += yForce + 0.3;
-                opacity -= 0.02;
-
-                p.style.left = `${x}px`;
-                p.style.top = `${y}px`;
-                p.style.opacity = opacity;
-
-                if (opacity > 0) {
-                    requestAnimationFrame(animateParticle);
-                } else {
-                    p.remove();
-                }
-            }
+            const p = document.createElement('div'); p.className = 'particle'; p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            p.style.left = '50vw'; p.style.top = '40vh'; container.appendChild(p);
+            const angle = Math.random() * Math.PI * 2; const velocity = 5 + Math.random() * 15;
+            const xForce = Math.cos(angle) * velocity; const yForce = Math.sin(angle) * velocity;
+            let x = window.innerWidth / 2; let y = window.innerHeight * 0.4; let opacity = 1;
+            function animateParticle() { x += xForce; y += yForce + 0.3; opacity -= 0.02; p.style.left = `${x}px`; p.style.top = `${y}px`; p.style.opacity = opacity; if (opacity > 0) { requestAnimationFrame(animateParticle); } else { p.remove(); } }
             requestAnimationFrame(animateParticle);
         }
     }
 
-    function startQuest() {
-        initAudio();
-        document.getElementById('start-btn').style.display = 'none';
-        document.getElementById('quiz-content').style.display = 'block';
-        curIdx = 0; score = 0; lives = 16; wrongVerbsList = [];
-        drawSquadStage();
-        renderQuiz();
-    }
+    function startQuest() { initAudio(); document.getElementById('start-btn').style.display = 'none'; document.getElementById('quiz-content').style.display = 'block'; curIdx = 0; score = 0; lives = 16; wrongVerbsList = []; drawSquadStage(); renderQuiz(); }
 
     function drawSquadStage() {
-        const stage = document.getElementById('squad-stage');
-        stage.innerHTML = ""; 
+        const stage = document.getElementById('squad-stage'); stage.innerHTML = ""; 
         for(let i = 0; i < lives; i++) {
-            const card = document.createElement('div');
-            card.className = "char-card"; card.id = `card-${i}`;
-            card.innerHTML = `<div class="char-avatar">${emojiPool[i]}</div>`;
-            stage.appendChild(card);
+            const card = document.createElement('div'); card.className = "char-card"; card.id = `card-${i}`;
+            card.innerHTML = `<div class="char-avatar">${emojiPool[i]}</div>`; stage.appendChild(card);
         }
-        const tagWrapper = document.createElement('div');
-        tagWrapper.className = "evo-tag-wrapper"; tagWrapper.id = "tag-wrap-id";
-        tagWrapper.innerHTML = `<div class="evo-tag" id="evo-name">올스타 디펜스 스쿼드 (남은 생명: ${lives})</div>`;
-        stage.appendChild(tagWrapper);
+        const tagWrapper = document.createElement('div'); tagWrapper.className = "evo-tag-wrapper"; tagWrapper.id = "tag-wrap-id";
+        tagWrapper.innerHTML = `<div class="evo-tag" id="evo-name">올스타 디펜스 스쿼드 (남은 생명: ${lives})</div>`; stage.appendChild(tagWrapper);
         resizeTagWrapper();
     }
 
-    function resizeTagWrapper() {
-        const wrapper = document.getElementById('tag-wrap-id');
-        if (wrapper) { wrapper.style.gridColumn = window.innerWidth <= 768 ? "span 4" : "span 8"; }
-    }
+    function resizeTagWrapper() { const wrapper = document.getElementById('tag-wrap-id'); if (wrapper) { wrapper.style.gridColumn = window.innerWidth <= 768 ? "span 4" : "span 8"; } }
     window.addEventListener('resize', resizeTagWrapper);
 
-    function renderQuiz() {
-        if(lives <= 0) { showGameOverScreen(); return; }
-        if(curIdx >= verbs.length) { showFinishScreen(); return; }
-        
-        const v = verbs[curIdx];
-        document.getElementById('stat-q').innerText = `QUEST: ${curIdx + 1}/25`;
-        document.getElementById('quiz-verb').innerText = v.r.toUpperCase();
-        document.getElementById('p-fill').style.width = `${(curIdx / 25) * 100}%`;
-        document.getElementById('msg-pop').innerText = "";
-
-        document.querySelectorAll('.char-card').forEach(c => c.classList.remove('dance-active'));
-        
-        const input = document.getElementById('user-input');
-        input.value = ""; input.focus();
-        input.onkeydown = (e) => { if(e.key === 'Enter') verifyAnswer(input.value.trim().toLowerCase()); };
-    }
-
-    function verifyAnswer(userAns) {
-        const processedUser = userAns.replace(/\s+/g, ' ').trim().toLowerCase();
-        const v = verbs[curIdx];
-        
-        if(processedUser === `${v.p} ${v.pp}`.toLowerCase()) {
-            score += 100;
-            document.getElementById('stat-s').innerText = `SCORE: ${score}`;
-            document.getElementById('msg-pop').innerText = "🎯 PERFECT! 영웅들이 춤을 춥니다!";
-            document.getElementById('msg-pop').style.color = "#10b981";
-            
-            // 🚨 비주얼 폭죽 + 경쾌한 소리 동시 연동 가동
-            playSound('correct');
-            createFireworks();
-
-            document.querySelectorAll('.char-card').forEach(c => c.classList.add('dance-active'));
-            curIdx++;
-            setTimeout(renderQuiz, 1200);
-        } else {
-            if(!wrongVerbsList.includes(verbs[curIdx])) wrongVerbsList.push(verbs[curIdx]);
-            triggerCharacterExplosion();
-        }
-    }
-
-    function triggerCharacterExplosion() {
-        // 🚨 카드 소멸 시 무거운 임팩트 폭발음 출력
-        playSound('wrong');
-
-        lives--;
-        document.getElementById('evo-name').innerText = `올스타 디펜스 스쿼드 (남은 생명: ${lives})`;
-        const targetCard = document.getElementById(`card-${lives}`);
-        if (targetCard) targetCard.classList.add('destroy-active');
-        setTimeout(openFeedbackOverlay, 1200);
-    }
-
-    function openFeedbackOverlay() {
-        const v = verbs[curIdx];
-        drawSquadStage();
-        document.getElementById('f-r').innerText = v.r;
-        document.getElementById('f-p').innerText = v.p;
-        document.getElementById('f-pp').innerText = v.pp;
-        document.getElementById('feedback-overlay').style.display = 'flex';
-    }
-
-    /* 하단 동일 통계 함수부 생략 최소 마크업 유지 */
+    // 하단 코어 로직 완벽 유지
+    function renderQuiz() { if(lives <= 0) { showGameOverScreen(); return; } if(curIdx >= verbs.length) { showFinishScreen(); return; } const v = verbs[curIdx]; document.getElementById('stat-q').innerText = `QUEST: ${curIdx + 1}/25`; document.getElementById('quiz-verb').innerText = v.r.toUpperCase(); document.getElementById('p-fill').style.width = `${(curIdx / 25) * 100}%`; document.getElementById('msg-pop').innerText = ""; document.querySelectorAll('.char-card').forEach(c => c.classList.remove('dance-active')); const input = document.getElementById('user-input'); input.value = ""; input.focus(); input.onkeydown = (e) => { if(e.key === 'Enter') verifyAnswer(input.value.trim().toLowerCase()); }; }
+    function verifyAnswer(userAns) { const processedUser = userAns.replace(/\s+/g, ' ').trim().toLowerCase(); const v = verbs[curIdx]; if(processedUser === `${v.p} ${v.pp}`.toLowerCase()) { score += 100; document.getElementById('stat-s').innerText = `SCORE: ${score}`; document.getElementById('msg-pop').innerText = "🎯 PERFECT! 영웅들이 춤을 춥니다!"; document.getElementById('msg-pop').style.color = "#10b981"; playSound('correct'); createFireworks(); document.querySelectorAll('.char-card').forEach(c => c.classList.add('dance-active')); curIdx++; setTimeout(renderQuiz, 1200); } else { if(!wrongVerbsList.includes(verbs[curIdx])) wrongVerbsList.push(verbs[curIdx]); triggerCharacterExplosion(); } }
+    function triggerCharacterExplosion() { playSound('wrong'); lives--; document.getElementById('evo-name').innerText = `올스타 디펜스 스쿼드 (남은 생명: ${lives})`; const targetCard = document.getElementById(`card-${lives}`); if (targetCard) targetCard.classList.add('destroy-active'); setTimeout(openFeedbackOverlay, 1200); }
+    function openFeedbackOverlay() { const v = verbs[curIdx]; drawSquadStage(); document.getElementById('f-r').innerText = v.r; document.getElementById('f-p').innerText = v.p; document.getElementById('f-pp').innerText = v.pp; document.getElementById('feedback-overlay').style.display = 'flex'; }
     function closeFeedback() { document.getElementById('feedback-overlay').style.display = 'none'; curIdx++; renderQuiz(); }
     function generateWrongAnswersHTML() { if(wrongVerbsList.length === 0) return `<p style="color:#10b981; font-weight:bold; font-size:20px; margin:20px 0;">🎉 대박! 단 한 문제도 틀리지 않은 퍼펙트 마스터입니다!</p>`; let rows = ''; wrongVerbsList.forEach(v => rows += `<tr><td>${v.r}</td><td>${v.p}</td><td>${v.pp}</td></tr>`); return `<p style="color:#e11d48; font-weight:bold; margin-top:15px; font-size:18px;"><i class="fa-solid fa-book-open"></i> 오답 리포트 (${wrongVerbsList.length}개)</p><div class="summary-container"><table class="summary-table"><thead><tr><th>원형</th><th>과거형</th><th>과거분사형</th></tr></thead><tbody>${rows}</tbody></table></div>`; }
     function downloadVerbsList() { let text = "==================================================\n   [Verb Quest] 필수 불규칙 동사 25선 (주관식 편)\n==================================================\n\n원형(Base) \t 과거형(Past) \t 과거분사형(P.P)\n--------------------------------------------------\n"; verbs.forEach((v, idx) => text += `${idx + 1}. ${v.r} \t\t ${v.p} \t\t ${v.pp}\n`); const blob = new Blob([text], { type: "text/plain;charset=utf-8;" }); const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = "verbs_list_short_answer.txt"; link.click(); }
