@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>불규칙 동사 에볼루션 퀘스트 - 주관식 스테이지</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic:wght@400;700&family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background-color: #fef08a; font-family: 'Nanum Gothic', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; overflow-x: hidden; position: relative; }
+        .game-board { width: 100%; max-width: 950px; background: #ffffff; border: 5px solid #1e293b; border-radius: 30px; padding: 25px; box-shadow: 0 15px 30px rgba(0,0,0,0.15); position: relative; z-index: 2; text-align: center; }
+        .progress-container { width: 100%; height: 16px; background: #e2e8f0; border-radius: 10px; overflow: hidden; margin-bottom: 20px; border: 2px solid #1e293b; }
+        .progress-fill { height: 100%; background: #fbbf24; width: 0%; transition: width 0.4s ease; }
+        .stats-bar { display: flex; justify-content: space-between; font-family: 'Jua', sans-serif; font-size: 20px; color: #1e293b; margin-bottom: 15px; }
+        .squad-stage { min-height: 180px; background: #f8fafc; border-radius: 24px; display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; margin: 0 auto 20px auto; position: relative; border: 4px dashed #1e293b; padding: 15px 10px; justify-items: center; align-items: center; }
+
+        @media (max-width: 768px) {
+            .game-board { padding: 15px; border-width: 4px; }
+            .stats-bar { font-size: 18px; }
+            .squad-stage { grid-template-columns: repeat(4, 1fr); gap: 10px 6px; padding: 15px 8px; }
+            .char-card { width: 68px !important; height: 72px !important; border-radius: 14px !important; }
+            .char-avatar { font-size: 40px !important; }
+            .evo-tag-wrapper { grid-column: span 4 !important; }
+            .evo-tag { font-size: 15px !important; padding: 4px 15px !important; }
+            .quiz-verb { font-size: 46px !important; }
+            .quiz-instr { font-size: 15px !important; margin-bottom: 20px; }
+            .typing-box { width: 100% !important; padding: 15px !important; font-size: 20px !important; }
+            .feedback-overlay h2 { font-size: 30px !important; }
+            .feedback-table td { font-size: 24px !important; padding: 15px !important; }
+            .btn-next { padding: 12px 35px !important; font-size: 18px !important; }
+            .summary-table th, .summary-table td { font-size: 16px !important; padding: 10px 5px !important; }
+        }
+
+        .char-card { width: 90px; height: 95px; background: #ffffff; border: 3px solid #1e293b; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 5px 0 #1e293b; position: relative; transition: all 0.3s ease; }
+        .char-avatar { font-size: 54px; line-height: 1; user-select: none; display: inline-block; }
+        .dance-active { animation: shakeDance 0.6s ease-in-out infinite alternate; }
+        .dance-active .char-avatar { animation: handWave 0.3s ease-in-out infinite alternate; }
+        @keyframes shakeDance { 0% { transform: translateY(0) rotate(-6deg); } 100% { transform: translateY(-15px) rotate(6deg); } }
+        @keyframes handWave { 0% { transform: scale(1) skewX(-5deg); } 100% { transform: scale(1.1) skewX(5deg); } }
+
+        .destroy-active { position: fixed !important; top: 50% !important; left: 50% !important; width: 280px !important; height: 300px !important; margin-top: -150px !important; margin-left: -140px !important; z-index: 9999 !important; background: rgba(255, 255, 255, 0.98) !important; border: 7px solid #ef4444 !important; border-radius: 24px !important; animation: giantExplode 1.2s cubic-bezier(0.15, 0.85, 0.35, 1) forwards !important; grid-column: span 1 !important; }
+        .destroy-active .char-avatar { font-size: 150px !important; }
+        @keyframes giantExplode { 0% { transform: scale(0.2); opacity: 0; } 40% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 30px #ef4444); } 70% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(2.8); opacity: 0; visibility: hidden; } }
+
+        .evo-tag-wrapper { grid-column: span 8; width: 100%; display: flex; justify-content: center; margin-top: 10px; }
+        .evo-tag { background: #1e293b; color: white; padding: 5px 25px; border-radius: 20px; font-family: 'Jua', sans-serif; font-size: 18px; }
+        .quiz-content-panel { display: none; }
+        .quiz-verb { font-family: 'Comfortaa', cursive; font-size: 64px; color: #1e293b; margin-bottom: 5px; }
+        .quiz-instr { color: #64748b; font-size: 18px; margin-bottom: 30px; }
+        .typing-box { width: 80%; padding: 20px; border: 4px solid #1e293b; border-radius: 20px; font-size: 26px; text-align: center; font-family: 'Comfortaa', cursive; outline: none; }
+
+        .feedback-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #ffffff; border-radius: 24px; display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 10; border: 6px solid #ef4444; padding: 20px; }
+        .feedback-overlay h2 { font-family: 'Jua', sans-serif; font-size: 42px; color: #ef4444; margin-bottom: 10px; }
+        .feedback-table { width: 100%; border-collapse: collapse; margin: 20px 0; background: #fef2f2; border-radius: 15px; overflow: hidden; border: 3px solid #1e293b; }
+        .feedback-table th { background: #fee2e2; color: #991b1b; padding: 12px; font-family: 'Jua', sans-serif; font-size: 18px; border-bottom: 3px solid #1e293b; }
+        .feedback-table td { padding: 20px; font-size: 34px; font-family: 'Comfortaa', cursive; font-weight: bold; text-align: center; color: #ef4444; }
+        
+        .btn-next { background: #ef4444; color: white; border: 3px solid #1e293b; padding: 15px 50px; font-size: 22px; font-family: 'Jua', sans-serif; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 0 #1e293b; }
+        .btn-action { background: #1e293b; color: white; border: none; padding: 20px 60px; font-size: 26px; font-family: 'Jua', sans-serif; border-radius: 50px; cursor: pointer; }
+        .msg-pop { margin-top: 20px; font-weight: bold; font-size: 22px; color: #10b981; min-height: 30px; }
+
+        .summary-container { max-height: 250px; overflow-y: auto; margin: 20px 0; border: 3px solid #1e293b; border-radius: 15px; background: #fff5f5; }
+        .summary-table { width: 100%; border-collapse: collapse; }
+        .summary-table th { position: sticky; top: 0; background: #fee2e2; color: #991b1b; padding: 12px; font-family: 'Jua', sans-serif; font-size: 18px; border-bottom: 3px solid #1e293b; }
+        .summary-table td { padding: 12px; font-size: 20px; font-family: 'Comfortaa', cursive; font-weight: bold; color: #b91c1c; border-bottom: 1px solid #fee2e2; }
+        .summary-table tr:last-child td { border-bottom: none; }
+        
+        .btn-download { background: #2563eb; color: white; border: 3px solid #1e293b; padding: 12px 30px; font-size: 18px; font-family: 'Jua', sans-serif; border-radius: 50px; cursor: pointer; margin: 15px 5px; box-shadow: 0 4px 0 #1e293b; transition: all 0.2s; }
+        .btn-download:hover { background: #1d4ed8; transform: translateY(-2px); }
+        .btn-download:active { transform: translateY(2px); box-shadow: none; }
+
+        /* 🎆 폭죽 파티클 스타일 */
+        .particle { position: fixed; pointer-events: none; width: 8px; height: 8px; border-radius: 50%; z-index: 999; }
+    </style>
+</head>
+<body>
+
+<div class="game-board">
+    <div class="progress-container"><div class="progress-fill" id="p-fill"></div></div>
+    <div class="stats-bar">
+        <span id="stat-q">QUEST: 1/25</span>
+        <div><span id="stat-s">SCORE: 0</span></div>
+    </div>
+
+    <div class="squad-stage" id="squad-stage">
+        <div class="evo-tag-wrapper" id="tag-wrap-id">
+            <div class="evo-tag" id="evo-name">올스타 디펜스 스쿼드 (남은 생명: 16)</div>
+        </div>
+    </div>
+
+    <div id="quiz-content" class="quiz-content-panel">
+        <h2 class="quiz-verb" id="quiz-verb">GO</h2>
+        <p class="quiz-instr" id="quiz-instr">과거형과 과거분사형을 차례대로 직접 입력하세요!</p>
+        <div id="typing-ui">
+            <input type="text" id="user-input" class="typing-box" placeholder="과거형  과거분사형 (예: saw seen)" autocomplete="off">
+            <p style="color:#94a3b8; font-size:14px; margin-top:10px;">단어 사이는 한 칸 띄어쓰기 해주세요!</p>
+        </div>
+        <div class="msg-pop" id="msg-pop"></div>
+    </div>
+
+    <div class="feedback-overlay" id="feedback-overlay">
+        <h2><i class="fa-solid fa-heart-crack"></i> 멤버 소멸!</h2>
+        <p style="font-size: 18px; color: #475569;">불규칙 동사 패턴을 복습하고 다음 방어전으로!</p>
+        <table class="feedback-table">
+            <thead><tr><th>원형</th><th>과거형</th><th>과거분사형</th></tr></thead>
+            <tbody><tr><td id="f-r" style="color: #64748b; font-family: 'Comfortaa';">go</td><td id="f-p">went</td><td id="f-pp">gone</td></tr></tbody>
+        </table>
+        <button class="btn-next" onclick="closeFeedback()">확인 완료! 다음 문제 <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+
+    <button id="start-btn" class="btn-action" onclick="startQuest()">QUEST START! (주관식)</button>
+</div>
+
+<script>
+    const verbs = [
+        {r: "mean", p: "meant", pp: "meant"}, {r: "set", p: "set", pp: "set"}, {r: "meet", p: "met", pp: "met"}, 
+        {r: "run", p: "ran", pp: "run"}, {r: "pay", p: "paid", pp: "paid"}, {r: "sit", p: "sat", pp: "sat"}, 
+        {r: "speak", p: "spoke", pp: "spoken"}, {r: "lie", p: "lay", pp: "lain"}, {r: "lead", p: "led", pp: "led"}, 
+        {r: "read", p: "read", pp: "read"}, {r: "grow", p: "grew", pp: "grown"}, {r: "lose", p: "lost", pp: "lost"}, 
+        {r: "fall", p: "fell", pp: "fallen"}, {r: "send", p: "sent", pp: "sent"}, {r: "build", p: "built", pp: "built"}, 
+        {r: "understand", p: "understood", pp: "understood"}, {r: "draw", p: "drew", pp: "drawn"}, 
+        {r: "break", p: "broke", pp: "broken"}, {r: "spend", p: "spent", pp: "spent"}, {r: "cut", p: "cut", pp: "cut"}, 
+        {r: "rise", p: "rose", pp: "risen"}, {r: "drive", p: "drove", pp: "driven"}, {r: "buy", p: "bought", pp: "bought"}, 
+        {r: "wear", p: "wore", pp: "worn"}, {r: "choose", p: "chose", pp: "chosen"}
+    ];
+
+    const emojiPool = ["🐻", "🐱", "🐹", "🦝", "🐰", "🦫", "🐯", "🦁", "🐶", "⚡", "😈", "🦉", "🍳", "🔥", "TURTLE", "🐧"];
+    let curIdx = 0, score = 0, lives = 16, targetDeleteId = null, wrongVerbsList = [];
+    let audioCtx = null;
+
+    function initAudio() {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    function playSound(type) {
+        initAudio();
+        if (!audioCtx) return;
+        
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'correct') {
+            const now = audioCtx.currentTime;
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(523.25, now);
+            osc.frequency.setValueAtTime(659.25, now + 0.1);
+            osc.frequency.setValueAtTime(783.99, now + 0.2);
+            gain.gain.setValueAtTime(0.3, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+            osc.start(now);
+            osc.stop(now + 0.4);
+        } else if (type === 'wrong') {
+            const now = audioCtx.currentTime;
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(120, now);
+            osc.frequency.linearRampToValueAtTime(40, now + 0.5);
+            gain.gain.setValueAtTime(0.5, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+            osc.start(now);
+            osc.stop(now + 0.6);
+        }
+    }
+
+    function createFireworks() {
+        const colors = ['#ff0055', '#00ffcc', '#ffcc00', '#22ff00', '#0022ff', '#ff00ff'];
+        const container = document.body;
+        
+        for (let i = 0; i < 40; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            p.style.left = '50vw';
+            p.style.top = '40vh';
+            container.appendChild(p);
+
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = 5 + Math.random() * 15;
+            const xForce = Math.cos(angle) * velocity;
+            const yForce = Math.sin(angle) * velocity;
+
+            let x = window.innerWidth / 2;
+            let y = window.innerHeight * 0.4;
+            let opacity = 1;
+
+            function animateParticle() {
+                x += xForce;
+                y += yForce + 0.3;
+                opacity -= 0.02;
+
+                p.style.left = `${x}px`;
+                p.style.top = `${y}px`;
+                p.style.opacity = opacity;
+
+                if (opacity > 0) {
+                    requestAnimationFrame(animateParticle);
+                } else {
+                    p.remove();
+                }
+            }
+            requestAnimationFrame(animateParticle);
+        }
+    }
+
+    function startQuest() {
+        initAudio();
+        document.getElementById('start-btn').style.display = 'none';
+        document.getElementById('quiz-content').style.display = 'block';
+        curIdx = 0; score = 0; lives = 16; wrongVerbsList = [];
+        drawSquadStage();
+        renderQuiz();
+    }
+
+    function drawSquadStage() {
+        const stage = document.getElementById('squad-stage');
+        stage.innerHTML = ""; 
+        for(let i = 0; i < lives; i++) {
+            const card = document.createElement('div');
+            card.className = "char-card"; card.id = `card-${i}`;
+            card.innerHTML = `<div class="char-avatar">${emojiPool[i]}</div>`;
+            stage.appendChild(card);
+        }
+        const tagWrapper = document.createElement('div');
+        tagWrapper.className = "evo-tag-wrapper"; tagWrapper.id = "tag-wrap-id";
+        tagWrapper.innerHTML = `<div class="evo-tag" id="evo-name">올스타 디펜스 스쿼드 (남은 생명: ${lives})</div>`;
+        stage.appendChild(tagWrapper);
+        resizeTagWrapper();
+    }
+
+    function resizeTagWrapper() {
+        const wrapper = document.getElementById('tag-wrap-id');
+        if (wrapper) { wrapper.style.gridColumn = window.innerWidth <= 768 ? "span 4" : "span 8"; }
+    }
+    window.addEventListener('resize', resizeTagWrapper);
+
+    function renderQuiz() {
+        if(lives <= 0) { showGameOverScreen(); return; }
+        if(curIdx >= verbs.length) { showFinishScreen(); return; }
+        
+        const v = verbs[curIdx];
+        document.getElementById('stat-q').innerText = `QUEST: ${curIdx + 1}/25`;
+        document.getElementById('quiz-verb').innerText = v.r.toUpperCase();
+        document.getElementById('p-fill').style.width = `${(curIdx / 25) * 100}%`;
+        document.getElementById('msg-pop').innerText = "";
+
+        document.querySelectorAll('.char-card').forEach(c => c.classList.remove('dance-active'));
+        
+        const input = document.getElementById('user-input');
+        input.value = ""; input.focus();
+        input.onkeydown = (e) => { if(e.key === 'Enter') verifyAnswer(input.value.trim().toLowerCase()); };
+    }
+
+    function verifyAnswer(userAns) {
+        const processedUser = userAns.replace(/\s+/g, ' ').trim().toLowerCase();
+        const v = verbs[curIdx];
+        
+        if(processedUser === `${v.p} ${v.pp}`.toLowerCase()) {
+            score += 100;
+            document.getElementById('stat-s').innerText = `SCORE: ${score}`;
+            document.getElementById('msg-pop').innerText = "🎯 PERFECT! 영웅들이 춤을 춥니다!";
+            document.getElementById('msg-pop').style.color = "#10b981";
+            
+            // 🚨 비주얼 폭죽 + 경쾌한 소리 동시 연동 가동
+            playSound('correct');
+            createFireworks();
+
+            document.querySelectorAll('.char-card').forEach(c => c.classList.add('dance-active'));
+            curIdx++;
+            setTimeout(renderQuiz, 1200);
+        } else {
+            if(!wrongVerbsList.includes(verbs[curIdx])) wrongVerbsList.push(verbs[curIdx]);
+            triggerCharacterExplosion();
+        }
+    }
+
+    function triggerCharacterExplosion() {
+        // 🚨 카드 소멸 시 무거운 임팩트 폭발음 출력
+        playSound('wrong');
+
+        lives--;
+        document.getElementById('evo-name').innerText = `올스타 디펜스 스쿼드 (남은 생명: ${lives})`;
+        const targetCard = document.getElementById(`card-${lives}`);
+        if (targetCard) targetCard.classList.add('destroy-active');
+        setTimeout(openFeedbackOverlay, 1200);
+    }
+
+    function openFeedbackOverlay() {
+        const v = verbs[curIdx];
+        drawSquadStage();
+        document.getElementById('f-r').innerText = v.r;
+        document.getElementById('f-p').innerText = v.p;
+        document.getElementById('f-pp').innerText = v.pp;
+        document.getElementById('feedback-overlay').style.display = 'flex';
+    }
+
+    /* 하단 동일 통계 함수부 생략 최소 마크업 유지 */
+    function closeFeedback() { document.getElementById('feedback-overlay').style.display = 'none'; curIdx++; renderQuiz(); }
+    function generateWrongAnswersHTML() { if(wrongVerbsList.length === 0) return `<p style="color:#10b981; font-weight:bold; font-size:20px; margin:20px 0;">🎉 대박! 단 한 문제도 틀리지 않은 퍼펙트 마스터입니다!</p>`; let rows = ''; wrongVerbsList.forEach(v => rows += `<tr><td>${v.r}</td><td>${v.p}</td><td>${v.pp}</td></tr>`); return `<p style="color:#e11d48; font-weight:bold; margin-top:15px; font-size:18px;"><i class="fa-solid fa-book-open"></i> 오답 리포트 (${wrongVerbsList.length}개)</p><div class="summary-container"><table class="summary-table"><thead><tr><th>원형</th><th>과거형</th><th>과거분사형</th></tr></thead><tbody>${rows}</tbody></table></div>`; }
+    function downloadVerbsList() { let text = "==================================================\n   [Verb Quest] 필수 불규칙 동사 25선 (주관식 편)\n==================================================\n\n원형(Base) \t 과거형(Past) \t 과거분사형(P.P)\n--------------------------------------------------\n"; verbs.forEach((v, idx) => text += `${idx + 1}. ${v.r} \t\t ${v.p} \t\t ${v.pp}\n`); const blob = new Blob([text], { type: "text/plain;charset=utf-8;" }); const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = "verbs_list_short_answer.txt"; link.click(); }
+    function showGameOverScreen() { document.getElementById('quiz-content').innerHTML = ` <h1 style="font-family:'Jua'; font-size:48px; color:#ef4444; margin-bottom:20px;">❌ GAME OVER</h1> ${generateWrongAnswersHTML()} <div><button class="btn-download" onclick="downloadVerbsList()"><i class="fa-solid fa-file-arrow-down"></i> 동사 목록 다운로드</button></div> <button class="btn-action" style="background:#ef4444;" onclick="location.reload()">다시 도전하기</button>`; }
+    function showFinishScreen() { document.getElementById('p-fill').style.width = "100%"; document.getElementById('quiz-content').innerHTML = ` <h1 style="font-family:'Jua'; font-size:48px; color:#fbbf24; margin-bottom:20px;">🏆 디펜스 대성공!</h1> ${generateWrongAnswersHTML()} <div><button class="btn-download" onclick="downloadVerbsList()"><i class="fa-solid fa-file-arrow-down"></i> 동사 목록 다운로드</button></div> <p style="font-size:26px; font-weight:bold; color:#b45309; margin-top:10px;">최종 스코어: ${score} 점</p> <button class="btn-action" onclick="location.reload()">처음부터 다시 하기</button>`; }
+</script>
+</body>
+</html>
