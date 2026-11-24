@@ -1,0 +1,113 @@
+학년도,문항,지문주제(원문 확인),"원문 단어(최대10, 지문에 실제 있음)",개수,비고
+2024,18,웹툰 제작 온라인 강좌 홍보(목적),beginner(초보자); advanced(상급의); instructor(강사); creativity(창의성); experienced(경험 많은); suit(맞추다); launch(출시하다); contents(내용물),8,
+2024,19,David의 심경 변화: 불안 → 안도,unoccupied(비어 있는); relax(긴장을 풀다); luckily(다행히); direction(방향); ease(안도); breath(숨),6,
+2024,20,행동으로 옮겨야 문화가 만들어진다(플레이북 공유),maintenance(유지); behavior(행동); distribute(나누어 주다); concise(간결한); representation(표현); coach(코치하다); transform(바꾸다); organization(조직),8,
+2024,21,주의의 초점을 넓히면 스트레스를 흘려보낸다(비점착 프라이팬),scattered(흩어진); fixate(집착하다); perspective(관점); spotlight(집중); anxiety(불안); provoke(유발하다),6,
+2024,22,고객 칭찬에 적극 응답하는 것의 중요성,prioritize(우선순위를 정하다); acknowledge(인정하다); compliment(칭찬); delightful(즐거운); upsetting(속상하게 하는); unanswered(응답되지 않은),6,
+2024,23,숲의 비시장적 생태계 가치를 평가해야 한다,incentive(유인책); exploitation(착취); habitat(서식지); erosion(침식); inefficient(비효율적인); extractive(채취하는); ecosystem(생태계); purification(정화),8,
+2024,24,과잉관광의 복합적 성격,assumption(가정); demarcate(경계를 정하다); capacity(수용력); degradation(악화); relative(상대적인); leakage(유출),6,
+2024,25,5개국 뉴스 회피 비율 도표,respondent(응답자); exceed(초과하다); avoid(피하다); percentage(비율),4,
+2024,26,Charles H. Townes 일대기,physicist(물리학자); influential(영향력 있는); contribution(공헌); acceptance(수용); priceless(값을 매길 수 없는); unimaginable(상상할 수 없는),6,
+2024,27,Turtle Island Boat Tour 안내문,refund(환불); participant(참가자); departure(출발); snorkeling(스노클링); booking(예약),5,안내문
+2024,28,2023 Eastland 영상 공모전 안내문,theme(주제); submission(제출); guideline(지침); prize(상); winning(수상의),5,안내문
+2024,29,신생아의 사회적 자극 모방 본능,innate(선천적인); disposition(성향); stimulus(자극); imitate(모방하다); gesture(몸짓); distress(고통); orient(향하다),7,
+2024,30,바자르 경제의 가격 협상과 공유된 문화,bazaar(시장); consensus(합의); constraint(제약); necessity(필수품); luxury(사치품); assess(평가하다),6,문맥상 낱말
+2024,31,아이들의 읽기 학습과 텍스트성,textuality(텍스트성); representational(표상의); adjunct(부속물); complement(보완하다); interpretation(해석),5,빈칸
+2024,32,영화 음악과 미래 세계의 창의성,futuristic(미래의); composer(작곡가); interfere(방해하다); recognizable(알아볼 수 있는); cadence(율동적인 박자),5,빈칸
+2024,33,표정 인식과 맥락(상황)의 역할,invariably(변함없이); evince(분명히 나타내다); precipitate(촉발하다); determinate(확정된); context(맥락),5,"무관 문장 아님, 빈칸"
+2024,34,교통 계획을 보는 사람들의 주관적 관점,well-intentioned(선의의); civic-minded(시민 의식이 있는); contentious(논쟁적인); commute(통근); objection(반대); proposal(제안),6,
+2024,35,빠른 말하기와 필러(군말),efficiency(효율성); intersection(교차로); filler(군말); navigational(길 안내의); idle(빈둥거리다),5,무관 문장
+2024,36,협상의 정의와 전개 순서(A)(B)(C),reconcile(화해시키다); antagonistic(적대적인); exposition(설명); publicity(홍보); outcome(결과),5,순서. NotebookLM의 '이웃 간 소문'은 오류
+2024,37,집단 규범의 발생과 제재(순서),prescribe(규정하다); conform(따르다); sanction(제재하다); conformity(순응); gesture(몸짓),5,순서
+2024,38,과학 연구는 승자독식이 아니다(문장 삽입),replication(재현); verification(검증); inaccurate(부정확한); contest(경쟁); cure(치료법),5,문장 삽입
+2024,39,돌연변이와 오식의 비유의 한계(문장 삽입),misprint(오식); mutation(돌연변이); analogy(유사); fatal(치명적인); offspring(자손); fitness(적응도),6,문장 삽입
+2024,40,여러 분야에 한 번에 한 주제씩 집중하면 지식이 압축된다(요약),condense(응축하다); cerebral(대뇌의); abbreviated(축약된); formula(공식); astonished(놀란),5,요약
+2024,41,과학자와 미디어의 관계(제목),entanglement(얽힘); controversy(논쟁); misquote(잘못 인용하다); unpleasantry(불쾌한 일); overhype(과대광고하다); advantage(이점),6,장문
+2024,42,과학자와 미디어(문맥상 낱말),entanglement(얽힘); misquote(잘못 인용하다); overhype(과대광고하다),3,장문
+2024,43,Emma와 Clara의 자전거 라이딩(순서),breathtaking(숨 막히는); boundless(끝없는); tragedy(비극); hardship(고난); constructive(건설적인); recovery(회복),6,순서
+2024,44,Emma와 Clara(가리키는 대상),hardship(고난); tragedy(비극),2,지칭
+2024,45,"Emma와 Clara 이야기(내용 일치 여부, 선택지 판단)",,0,지문에 해당 단어 없음. 단어 추가 안 함
+2025,18,마라톤 경기 취소 공지(목적),grateful; scheduled; downpour; smoothly; slippery; dangerous; cancel; promise; unfortunately; understand,10,편지형 안내
+2025,19,Peter의 심경 변화(기대에서 실망으로),disappeared; reservation; reserved; quietly; absolutely; unfortunately; surprise; perfect; searching; event,10,
+2025,20,게임을 학습 성과와 연결해야 한다(필자 주장),pleasant; derailing; desirable; enhance; valuable; attention; outcomes; commanding; accomplishing; productivity,10,
+2025,21,"'hunting the shadow, not the substance'의 의미(밑줄 어구)",symbolically; practical; theoretical; manual; authority; scholarship; obviously; discipline; curriculum; recognized,10,
+2025,22,감정 이해 능력과 집단 협력(요지),relevant; facilitate; accurately; cooperate; perspective; constructive; appreciation; consequences; conflict; functioning,10,
+2025,23,산업화와 시간·생산성의 변화(주제),relationship; volume; potential; productivity; wages; reorganize; principles; factories; shifts; machines,10,
+2025,24,셀피는 자화상 전통의 확장(제목),expresses; intensifies; fundamental; depict; tension; majority; reworked; signature; status; emotions,10,
+2025,25,여성 고용 비율 도표(일치하지 않는 것),percentage; employed; producers; directors; writers; editors; increased; highest,8,
+2025,26,Dick Enberg 일대기(일치하지 않는 것),beloved; broadcasters; assistant; coach; sportscaster; remained; covering; chairman; best-selling; writer,10,
+2025,27,Adenville City Pass Card 안내문(일치하지 않는 것),refundable; unused; admission; benefit; tourists; transportation; purchase; licensed; subway; range,10,안내문
+2025,28,Luckwood Snow Festival 안내문(일치하는 것),annual; festival; contest; participate; sculpture; shuttle; available; parking; tunnels; slides,10,안내문
+2025,29,의식과 자동 처리 과정(어법),contracted; relaxed; automatically; conscious; analysis; awareness; recovering; injury; crude; perceiving,10,
+2025,30,경쟁과 과제 동기 저하(문맥상 낱말),incentives; competitors; conflict; interpersonal; uncomfortable; envious; comparisons; cooperative; altruistic; significance,10,
+2025,31,문학이 언어 학습에 주는 효과(빈칸),fosters; analytic; piecemeal; superficial; imaginatively; attention; inhabit; emotional; transparent; characters,10,
+2025,32,비판적 사고와 자극 중심 삶(빈칸),succumbing; liberation; imperfect; possession; stimulus; heuristic; exhausting; convenience; inexperienced; emotions,10,
+2025,33,주의 경제와 광고 기반 무료 서비스(빈칸),profitable; consume; advertising; conscious; conventional; mediated; exploration; recommendation; trap; magical,10,
+2025,34,규칙이 행동과 활동을 만든다(빈칸),regulate; constitutes; corporations; negotiable; instruments; contracting; trustees; guardians; constrain; opportunity,10,
+2025,35,스포츠 관광과 자동차(흐름과 무관한 문장),revolutionized; automobile; dramatic; convenience; flexibility; accommodation; invaluable; remote; luggage; tourism,10,
+2025,36,평판 자본과 계약 집행(순서),enforcement; reputational; devalued; undermaintain; assessments; monitor; reputations; underreport; overuse; fairness,10,NotebookLM의 '이웃 간 소문'과 무관
+2025,37,새 떼의 감정 전염(순서),startles; infected; fearful; flockmates; impossible; coordination; scanning; nervous; significantly; antipredatory,10,
+2025,38,영업비밀 보호와 발명자 위험(문장 삽입),promote; innovation; patent; innovators; secrecy; proprietary; disclose; contractor; inordinate; impassable,10,
+2025,39,유지·보수와 사물의 수명 주기(문장 삽입),maintenance; repair; predominantly; perspective; lifespan; anthropomorphic; relegated; disposal; dynamic; repurposed,10,
+2025,40,합성 식품과 천연 식품의 안전성(요약),synthetic; controlled; composition; toxicity; variations; harvested; appreciably; isolated; climate; careful,10,
+2025,41,인간 손의 정밀 쥐기(제목),precision; opposition; efficient; displacements; fingertip; keystone; subsistence; primates; anatomical; claws,10,41~42 같은 지문
+2025,42,"같은 지문, 밑줄 낱말 (a)~(e) 문맥 쓰임",efficient; displacements; possible; without; excludes,5,41번과 같은 지문
+2025,43,Ethan과 Sean의 하이킹 계획(순서),hiking; laundry; suggested; hesitation; reminded; storage; embarrassed; apologized; energized; heartbeat,10,43~45 같은 지문
+2025,44,"같은 지문, 밑줄 대상 지칭(he/his 등)",hiking; laundry; suggested; hesitation; reminded; storage; embarrassed; apologized; energized; heartbeat,10,43번과 같은 지문
+2025,45,"같은 지문, 내용 일치 여부",hiking; laundry; suggested; hesitation; reminded; storage; embarrassed; apologized; energized; heartbeat,10,43번과 같은 지문
+2026,18,동아리 제안서 제출 독려(목적),diverse; extracurricular; expand; additional; proposal; encouraging; submit; opportunity; various; interests,10,편지형 안내
+2026,19,Sophie의 심경 변화(기억 속 집을 찾음),uncertain; awkwardly; unsure; narrow; familiar; faded; nodded; brightly; gate; village,10,
+2026,20,가사를 문학으로 인정해야 한다(필자 주장),celebrated; acknowledgement; contributions; restraints; ignored; explosion; manipulation; storytelling; enrich; imagery,10,
+2026,21,'made a lot of work less sticky'의 의미(밑줄 어구),modularised; standardised; outsourcing; disconnected; freelance; regulations; switch; platform; traces; employer,10,
+2026,22,스포츠 산업의 협력적 경쟁(요지),coopetition; simultaneous; paramount; collaborate; compete; balancing; emphasis; cautious; neglected; competitive,10,
+2026,23,대중교통은 속도보다 배차 빈도가 중요하다(주제),frequency; timetable; commute; scheduled; transit; speed; worthless; waiting; motorist; trips,10,"원문 확인 완료, 정답 ③"
+2026,24,문화와 오락의 결합 현상(제목),commercialization; homogeneous; dilution; exploitation; incentive; commemorations; independent; emergence; delicate; potential,10,
+2026,25,청소년 소통 방식 도표(일치하지 않는 것),percentages; survey; communication; category; highest; lower; twice; teenagers; emailing; video chatting,10,
+2026,26,Max Kleiber 생애(일치하지 않는 것),pioneer; nutrition; metabolism; distinguished; subsequently; translated; outstanding; undergraduates; graduate; honor,10,
+2026,27,School Bell Sound Contest 안내문(일치하지 않는 것),contest; entries; deadline; upload; description; selection; creativity; suitability; replace; wireless,10,안내문
+2026,28,Fun Bowling Season Pass 안내문(일치하는 것),discount; transferable; rentals; purchase; details; season; standard; online; limited; include,10,안내문
+2026,29,인간의 집단 학습 심리(어법),exceptionally; adapt; adaptive; environments; confronted; foraging; ecological; accumulate; inventive; motivated,10,
+2026,30,상황 윤리와 스포츠 경쟁(문맥상 낱말),situational; absolute; justifies; contrasting; officials; admit; competitive; advantages; ethics; abandon,10,
+2026,31,초기 곡물 무역 기업의 정보 활용(빈칸),surplus; deficit; secrecy; loyalty; commodity; futures; unstable; minimize; operating; access,10,
+2026,32,글쓰기에서 독자 고려(빈칸),cooperation; exchanges; polished; clarity; relevance; proportion; appropriately; nonverbal; immediate; feedback,10,
+2026,33,고객과 잠재 사용자 의견 반영(빈칸),prospective; administration; perspectives; irregularly; emergencies; inevitably; satisfied; productivity; absenteeism; turnover,10,
+2026,34,칸트의 법치 사상(빈칸),guarantee; binding; rational; harmony; prosper; optimistic; benevolence; suppress; embodiment; inevitable,10,
+2026,35,자기관리와 우선순위(흐름과 무관한 문장),reprioritize; cumulative; exception; deadline; impact; beneficial; competitive; exercise; hobbies; relaxation,10,
+2026,36,시계는 반복되는 과정이다(순서),repetitive; molecules; iteration; radiocarbon; decay; continuous; steady; vibrate; process; cycle,10,
+2026,37,철학의 역할과 과학과의 협력(순서),supplemented; empirical; comprehensive; interdisciplinary; pioneer; validate; consciousness; neuroscience; bridge; concept,10,
+2026,38,내러티브 간의 경쟁(문장 삽입),memorability; persuasiveness; anecdotes; incumbent; challenger; narratives; rooted; identity; ideology; unfortunate,10,
+2026,39,게임 속 행동 공간과 지각(문장 삽입),explored; potential; perception; requires; perceptual; encompassing; feedback; navigate; extended; interaction,10,
+2026,40,공연예술의 독자성과 재정 문제(요약),distinct; ritualistic; expertly; unstable; fascination; experiential; sustain; funding; fulfillment; sustainable,10,
+2026,41,옷의 역사 연구 문제(제목),inevitable; movement; lifeless; provide; unlikely; uninterrupted; illustrative; surviving; evidence; fluid,10,41~42 같은 지문
+2026,42,"같은 지문, 밑줄 낱말 (a)~(e) 문맥 쓰임",inevitable; movement; lifeless; provide; unlikely,5,41번과 같은 지문
+2026,43,Mia 가족의 독서 모임 계획(순서),absorbed; earbuds; concerned; suggestion; distant; reluctantly; persuasion; reconnected; spending; endless,10,43~45 같은 지문
+2026,44,"같은 지문, 밑줄 대상 지칭",absorbed; earbuds; concerned; suggestion; distant; reluctantly; persuasion; reconnected; spending; endless,10,43번과 같은 지문
+2026,45,"같은 지문, 내용 일치 여부",absorbed; earbuds; concerned; suggestion; distant; reluctantly; persuasion; reconnected; spending; endless,10,43번과 같은 지문
+2027,18,호텔 베개 구매 문의(목적),relaxing; facilities; welcoming; rested; ache; pillows; purchase; wonderful,8,편지형 안내
+2027,19,Christine의 심경 변화(빵 반죽 실패 후 성공),mixture; recipe; struggle; advice; spoonful; widened; pounding; eagerly; delicious; sighed,10,
+2027,20,야생동물 촬영 전 준비의 중요성(필자 주장),patience; precision; preparedness; anticipate; behavior; migration; momentous; genuine; likelihood; enjoyable,10,
+2027,21,'dragging an anchor'의 의미(밑줄 어구),sealed; obstacle; primarily; ecosystems; deliberate; selectively; safeguarding; asset; anchor; valuable,10,
+2027,22,관찰과 독서의 원리(요지),observed; precise; observation; attention; eagerness; retentive; pressing; definite; certainty; discover,10,
+2027,23,식물의 환경과 자손의 적응(주제),inseparable; offspring; thrives; challenging; adaptation; defensive; chemicals; caterpillars; armor; environment,10,
+2027,24,신선 농산물 유통의 변화(제목),globalization; produce; exotic; projections; distributors; efficiently; advanced; tropical; imports; community,10,
+2027,25,폭염일 수 도표(일치하지 않는 것),daytime; respectively; smallest; smaller; greater; highest; temperature; reaching; times,9,
+2027,26,Dorothy Cheney 생애(일치하지 않는 것),renowned; primates; fieldwork; mentored; distinguished; influence; subsequently; predators; discovering; carried,10,
+2027,27,Brain Power Memory Championship 안내문(일치하지 않는 것),compete; memorize; medal; random; exact; matched; participants; registration; convention; final,10,안내문
+2027,28,Fix-it Festival 안내문(일치하는 것),repair; experts; pre-registration; exchange; booth; lessons; fees; categories; festival; bicycle,10,안내문
+2027,29,믿음을 재검토하는 사고(어법),largely; reexamine; reflectively; tempting; consistent; entertained; objectify; critically; evidence; beliefs,10,
+2027,30,집단 지능과 협력(문맥상 낱말),collectives; intelligent; easily; reliable; additive; collaboration; transgenerational; trial-and-error; expert; predominantly,10,
+2027,31,통제장치 오작동 방지 설계(빈칸),likelihood; accidental; activation; operator; resistance; recess; barrier; protective; sequence; actions,10,
+2027,32,가상현실의 특성(빈칸),immerses; simulated; linear; headset; surrounded; digitally; curated; spectacular; conveys; emotional,10,
+2027,33,문화에 따른 학습 내용(빈칸),anthropologists; evidently; cultural; demonstrate; absolute; corollary; conformity; individual; community; rights,10,
+2027,34,그림에서 리듬이 구성으로 바뀌는 과정(빈칸),rhythm; composition; overstep; fundamental; pictorial; luminosity; reoccurring; pattern; duration; perceive,10,
+2027,35,온라인 게임과 e스포츠 확산(흐름과 무관한 문장),primarily; infrastructure; connectivity; transforming; participants; diverse; reflecting; sponsorship; belonging; tournament,10,
+2027,36,먹이사슬에서 곤충 감소의 영향(순서),norm; proportion; consume; consequences; segmented; skeleton; estimated; privately; population; ancient,10,
+2027,37,박물관의 기원(순서),origins; privileged; indexed; proprietor; inferior; epistemic; fundamentally; mediated; cognitive; acknowledged,10,
+2027,38,수면의 의미(문장 삽입),interferes; biologically; pressing; innately; poorly; mystery; hammock; vital; understood; debt,10,
+2027,39,경쟁 감소와 혁신 전략(문장 삽입),competition; survive; innovation; monopoly; profit; globalization; deregulation; conventional; antitrust; effectiveness,10,
+2027,40,광고는 소비자 태도를 바꾼다(요약),insufficient; recover; attitude; consumption; expectations; exploratory; practitioners; creatively; influence; perception,10,
+2027,41,지구 밖 생명 탐색의 전제(제목),liquid; atmospheres; orbits; stellar; habitable; fuels; contradicts; typical; microbial; exceptions,10,41~42 같은 지문
+2027,42,"같은 지문, 밑줄 낱말 (a)~(e) 문맥 쓰임",fuels; contradicts; different; typical; exceptions,5,41번과 같은 지문
+2027,43,Andy의 자책과 상담(순서),buried; captain; rivals; anxiously; pillow; calm; scored; unbelievable; blaming; comforted,10,43~45 같은 지문
+2027,44,"같은 지문, 밑줄 대상 지칭",buried; captain; rivals; anxiously; pillow; calm; scored; unbelievable; blaming; comforted,10,43번과 같은 지문
+2027,45,"같은 지문, 내용 일치 여부",buried; captain; rivals; anxiously; pillow; calm; scored; unbelievable; blaming; comforted,10,43번과 같은 지문
