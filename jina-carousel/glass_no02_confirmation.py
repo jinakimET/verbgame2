@@ -72,6 +72,14 @@ S.append([Pill('기출 단어 · 2027 수능 29번'),Head([[('이 주제의 ',Fa
   Word('consistent','일관된, ~와 일치하는','Her answer is consistent with what she believes.'),
   Word('evidence','증거','Look at the evidence before you decide.'),
   Word('critically','비판적으로','Read the passage critically.')])
+# 지나쌤 한마디
+S.append([Pill('지나쌤 한마디'),
+  Card([Text('“',90,th.acc,True,lh=0.9),
+        Text('유튜브 영상을 볼 때도, 사람들은 자기가 보던 방식대로 알고리즘이 맞춰 준 영상과 글을 계속 찾아보게 돼요. 그렇게 되면 반대쪽 의견은 잘 들으려 하지 않는 경향이 있어요.',42,bold=True,lh=1.5),
+        Text('왜 그런 걸까요?',46,th.acc,True,lh=1.5),
+        Gap(8),
+        Text('이 궁금증을 가지고 이번 편을 읽어 보세요.',40,lh=1.55),
+        Text('— 지나쌤',34,th.acc,True)])])
 # 12 한 줄 정리
 S.append([Pill('한 줄 정리'),Head(['내 생각이 틀릴 증거를',[('먼저',True),(' 찾아보기',False)]],size=80),
   Card([Text('더 읽어 보기',32,th.acc,True),
