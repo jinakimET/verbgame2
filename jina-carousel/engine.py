@@ -19,35 +19,52 @@ _m=ImageDraw.Draw(Image.new('RGB',(4,4)))
 def gl(sz,b=True):
     bb=_m.textbbox((0,0),'가',font=F(sz,b)); return bb[1],bb[3]
 def tl(t,f): return _m.textlength(t,font=f)
+import re
+_HANGUL=re.compile(r'[\u1100-\u11FF\u3130-\u318F\uAC00-\uD7A3]')
+_CLOSE=set('.,?!:;)]}\u201d\u2019\u300d\u300f\u2026\u00b7%')
+_OPEN=set('\u201c\u2018\u300c\u300e([{')
+def _one(t,i):
+    n=len(t); j=i+1
+    if not _HANGUL.match(t[i]):
+        while j<n and t[j]!=' ' and not _HANGUL.match(t[j]): j+=1
+        if j<n and _HANGUL.match(t[j]): j+=1   # 영문·숫자 뒤의 조사/단위 한 글자는 붙인다 (29번, attention을)
+    while j<n and t[j] in _CLOSE: j+=1         # 줄 맨 앞에 마침표·닫는 따옴표가 오지 않게
+    return t[i:j]
+def _units(t):
+    out=[]; i=0; n=len(t)
+    while i<n:
+        c=t[i]
+        if c==' ': out.append(' '); i+=1; continue
+        k=i
+        while k<n and t[k] in _OPEN: k+=1       # 여는 따옴표는 다음 글자와 붙인다
+        if k<n and t[k]!=' ': u=t[i:k]+_one(t,k); out.append(u); i+=len(u)
+        elif k>i: out.append(t[i:k]); i=k
+        else: u=_one(t,i); out.append(u); i+=len(u)
+    return out
 def wrap(t,f,w):
-    # greedy wrap, then rebalance so a paragraph never ends with a very short orphan line
-    res=[]
-    for para in t.split('\n'):
-        ls=_wrap1(para,f,w)
-        if len(ls)>1 and tl(ls[-1],f)<0.35*w:
-            best=ls
-            for k in range(1,7):
-                cand=_wrap1(para,f,w*(1-0.04*k))
-                if len(cand)!=len(ls): break
-                best=cand
-                if tl(cand[-1],f)>=0.35*w: break
-            ls=best
-        res+=ls
-    return res
-def _wrap1(t,f,w):
+    """한글은 글자 단위로 상자 끝까지 채우고, 영어 단어는 쪼개지 않는다."""
     out=[]
     for para in t.split('\n'):
         cur=''
-        for word in para.split(' '):
-            cand=(cur+' '+word) if cur else word
-            if tl(cand,f)<=w: cur=cand; continue
-            if cur: out.append(cur)
-            cur=word
-            while tl(cur,f)>w:  # very long word: char split
-                i=len(cur)
-                while tl(cur[:i],f)>w: i-=1
-                out.append(cur[:i]); cur=cur[i:]
-        out.append(cur)
+        for u in _units(para):
+            if u==' ':
+                if cur and not cur.endswith(' '): cur+=' '
+                continue
+            if tl((cur+u).rstrip(),f)<=w: cur+=u; continue
+            if cur.strip(): out.append(cur.rstrip()); cur=''
+            if tl(u,f)>w:
+                piece=''
+                for ch in u:
+                    if tl(piece+ch,f)>w: out.append(piece); piece=ch
+                    else: piece+=ch
+                cur=piece
+            else: cur=u
+        out.append(cur.rstrip())
+        # 마지막 줄에 한두 글자만 남으면 앞 줄에서 두 글자를 내려 보낸다 (앞 줄은 거의 그대로 가득 참)
+        if len(out)>=2 and para.strip():
+            last=out[-1]; prev=out[-2]
+            if 0<len(last.replace(' ',''))<=2 and len(prev)>8 and all(_HANGUL.match(ch) for ch in prev[-2:]):
+                out[-2]=prev[:-2]; out[-1]=prev[-2:]+last
     return out
 def bg(th,seed):
     im=Image.new('RGB',(W,H),th.base); d=ImageDraw.Draw(im)
