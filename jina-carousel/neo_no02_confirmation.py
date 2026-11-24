@@ -1,6 +1,6 @@
 import sys,re; sys.path.insert(0,'.')
 from PIL import Image, ImageDraw
-from engine import F, tl, wrap, gl, ctext
+from engine import F, tl, wrap, wrap2, draw_just, gl, ctext
 W,H=1080,1440; M=80
 BG='#F9EAD7'; K='#17191B'; WHITE='#FFFFFF'
 LV={'하':('#BFE23A',K,'중학 수준'),'중':('#FFE164',K,'고1 수준'),'상':('#E10600',WHITE,'고3 수준')}
@@ -107,7 +107,7 @@ for lv in ['하','중','상']:
     sz=fit_size(lambda z: len(wrap(ko,F(z,False),W-2*M-112))*int(z*1.65)); f=F(sz,False); ls=wrap(ko,f,W-2*M-112); lh=int(sz*1.65)
     top=int(330+(1320-330-BOXH)/2); box(d,(M,top,W-M,top+BOXH),c)
     y0=top+(BOXH-len(ls)*lh)/2+8
-    for i,l in enumerate(ls): d.text((M+56,y0+i*lh),l,font=f,fill=tc)
+    for i,(l,last) in enumerate(wrap2(ko,f,W-2*M-112)): draw_just(d,l,M+56,y0+i*lh,W-2*M-112,f,tc,not last)
     swipe(d); save(im,n)
 # vocab
 V=[('하','believe','믿다','When we believe something,'),('하','facts','사실 (fact의 복수형)','look for facts'),('하','agree','일치하다, 동의하다','facts that agree with us'),('하','ignore','무시하다','We often ignore facts'),('하','idea','생각','our idea feels more and more right'),('하','side','편, 쪽','listen to the other side'),

@@ -41,11 +41,11 @@ def _units(t):
         elif k>i: out.append(t[i:k]); i=k
         else: u=_one(t,i); out.append(u); i+=len(u)
     return out
-def wrap(t,f,w):
-    """한글은 글자 단위로 상자 끝까지 채우고, 영어 단어는 쪼개지 않는다."""
-    out=[]
+def wrap2(t,f,w):
+    """한글은 글자 단위로 상자 끝까지 채우고, 영어 단어는 쪼개지 않는다. [(줄, 문단의 마지막 줄인가)]"""
+    res=[]
     for para in t.split('\n'):
-        cur=''
+        out=[]; cur=''
         for u in _units(para):
             if u==' ':
                 if cur and not cur.endswith(' '): cur+=' '
@@ -60,12 +60,26 @@ def wrap(t,f,w):
                 cur=piece
             else: cur=u
         out.append(cur.rstrip())
-        # 마지막 줄에 한두 글자만 남으면 앞 줄에서 두 글자를 내려 보낸다 (앞 줄은 거의 그대로 가득 참)
-        if len(out)>=2 and para.strip():
+        if len(out)>=2 and para.strip():   # 마지막 줄에 한두 글자만 남으면 앞 줄에서 두 글자를 내려 보낸다
             last=out[-1]; prev=out[-2]
             if 0<len(last.replace(' ',''))<=2 and len(prev)>8 and all(_HANGUL.match(ch) for ch in prev[-2:]):
                 out[-2]=prev[:-2]; out[-1]=prev[-2:]+last
-    return out
+        res+=[(l,k==len(out)-1) for k,l in enumerate(out)]
+    return res
+def wrap(t,f,w): return [l for l,_ in wrap2(t,f,w)]
+def draw_just(d,line,x,y,w,f,fill,justify=True):
+    """책 조판처럼 줄 양끝을 맞춘다 (마지막 줄·영어 줄은 왼쪽 정렬)."""
+    extra=w-tl(line,f)
+    if not justify or not _HANGUL.search(line) or extra<=0.5 or extra>0.9*f.size:
+        d.text((x,y),line,font=f,fill=fill); return
+    words=line.split(' ')
+    if len(words)>1:
+        gap=tl(' ',f)+extra/(len(words)-1); cx=x
+        for wd in words: d.text((cx,y),wd,font=f,fill=fill); cx+=tl(wd,f)+gap
+    else:
+        gap=extra/max(1,len(line)-1); cx=x
+        for ch in line: d.text((cx,y),ch,font=f,fill=fill); cx+=tl(ch,f)+gap
+_MARK=re.compile(r'^(?:[\u2460-\u2473\u2776-\u277f]|\d{1,2}[.)])\s+')
 def bg(th,seed):
     im=Image.new('RGB',(W,H),th.base); d=ImageDraw.Draw(im)
     pos=[[(650,-250,1400,500),(-300,500,450,1150),(500,1000,1300,1700)],[(-350,-200,450,550),(600,450,1350,1150),(-250,1000,550,1700)]][seed%2]
@@ -112,11 +126,16 @@ def Head(lines,size=72,minr=0.8):
                 cx+=tw; prev=hl
         return lh*len(segs)-int(sz*0.12)
     return f
-def Text(t,size=38,color=None,bold=False,lh=1.5):
+def Text(t,size=40,color=None,bold=False,lh=1.5):
     def f(c,x,y,w,draw):
-        sz=z(size); fo=F(sz,bold); ls=wrap(t,fo,w)
+        sz=z(size); fo=F(sz,bold); m=_MARK.match(t)
+        if m: mk=m.group(0).strip(); ind=tl(mk+' ',fo); body=t[m.end():]
+        else: mk=None; ind=0; body=t
+        ls=wrap2(body,fo,w-ind)
         if draw:
-            for i,l in enumerate(ls): c.d.text((x,y+i*int(sz*lh)),l,font=fo,fill=color or c.th.wh)
+            col=color or c.th.wh
+            if mk: c.d.text((x,y),mk,font=fo,fill=col)
+            for i,(l,last) in enumerate(ls): draw_just(c.d,l,x+ind,y+i*int(sz*lh),w-ind,fo,col,not last)
         return int(sz*lh)*(len(ls)-1)+int(sz*1.3)
     return f
 def Gap(px):
@@ -176,11 +195,15 @@ def render(th,slides,out,chip,handle='@jina.ssam_english',label='영어지문 �
     paths=[]
     for n,blocks in enumerate(slides,1):
         im=bg(th,n); c=Ctx(im,th); w=W-2*M; gap=30
-        best=1.0
-        for k in [1.3,1.25,1.2,1.15,1.1,1.05]:
-            SC[0]=k
-            hs=[b(c,0,0,w,False) for b in blocks]
-            if sum(hs)+gap*(len(blocks)-1)<=(BOT-TOP)*0.9: best=k; break
+        best=None; n_=len(blocks)
+        for k in [1.3,1.25,1.2,1.15,1.1,1.05,1.0]:
+            SC[0]=k; hs=[b(c,0,0,w,False) for b in blocks]
+            if sum(hs)+gap*(n_-1)<=(BOT-TOP)*0.92: best=k; break
+        if best is None:
+            for k in [1.0,0.97,0.94,0.91,0.88,0.85]:
+                SC[0]=k; hs=[b(c,0,0,w,False) for b in blocks]
+                if sum(hs)+gap*(n_-1)<=(BOT-TOP): best=k; break
+        assert best is not None, f'slide {n} 내용이 너무 많음: 장을 나눠야 함'
         SC[0]=best; gap=z(30)
         hs=[b(c,0,0,w,False) for b in blocks]; total=sum(hs)+gap*(len(blocks)-1)
         assert total<=BOT-TOP, f'slide {n} overflow {total} > {BOT-TOP}: 내용을 다음 장으로 나눠야 함'

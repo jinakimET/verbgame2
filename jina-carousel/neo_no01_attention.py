@@ -1,6 +1,6 @@
 import sys,re; sys.path.insert(0,'.')
 from PIL import Image, ImageDraw
-from engine import F, tl, wrap, gl, ctext
+from engine import F, tl, wrap, wrap2, draw_just, gl, ctext
 W,H=1080,1440; M=80
 BG='#F9EAD7'; K='#17191B'; WHITE='#FFFFFF'
 LV={'하':('#BFE23A',K,'중학 수준'),'중':('#FFE164',K,'고1 수준'),'상':('#E10600',WHITE,'고3 수준')}
@@ -107,7 +107,7 @@ for lv in ['하','중','상']:
     sz=fit_size(lambda z: len(wrap(ko,F(z,False),W-2*M-112))*int(z*1.65)); f=F(sz,False); ls=wrap(ko,f,W-2*M-112); lh=int(sz*1.65)
     top=int(330+(1320-330-BOXH)/2); box(d,(M,top,W-M,top+BOXH),c)
     y0=top+(BOXH-len(ls)*lh)/2+8
-    for i,l in enumerate(ls): d.text((M+56,y0+i*lh),l,font=f,fill=tc)
+    for i,(l,last) in enumerate(wrap2(ko,f,W-2*M-112)): draw_just(d,l,M+56,y0+i*lh,W-2*M-112,f,tc,not last)
     swipe(d); save(im,n)
 # vocab
 V=[('하','free','무료의','Many apps are free.'),('하','still','그런데도, 여전히','The companies still make money.'),('하','company','회사 (복수형 companies)','The companies still make money.'),('하','ad','광고 (advertisement의 줄임말)','They show you ads.'),('하','sell','팔다','Your time is what they sell.'),('하','pay','돈을 내다 (paying은 진행형)','Who is paying?'),
