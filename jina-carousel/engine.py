@@ -62,8 +62,12 @@ def wrap2(t,f,w):
         out.append(cur.rstrip())
         if len(out)>=2 and para.strip():   # 마지막 줄에 한두 글자만 남으면 앞 줄에서 두 글자를 내려 보낸다
             last=out[-1]; prev=out[-2]
-            if 0<len(last.replace(' ',''))<=2 and len(prev)>8 and all(_HANGUL.match(ch) for ch in prev[-2:]):
-                out[-2]=prev[:-2]; out[-1]=prev[-2:]+last
+            nl=len(last.replace(' ',''))
+            if 0<nl<=2 and len(prev)>8:
+                k=0
+                if nl==1 and all(_HANGUL.match(ch) for ch in prev[-2:]): k=2
+                elif _HANGUL.match(prev[-1]): k=1
+                if k: out[-2]=prev[:-k].rstrip(); out[-1]=prev[-k:]+last
         res+=[(l,k==len(out)-1) for k,l in enumerate(out)]
     return res
 def wrap(t,f,w): return [l for l,_ in wrap2(t,f,w)]
