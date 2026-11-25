@@ -71,6 +71,14 @@ S.append([Pill('기출 단어 · 2026 수능 40번'),Head([[('이 주제의 ',Fa
   Word('funding','자금 지원','Many theaters need public funding.'),
   Word('sustain','유지하다, 지탱하다','Funding helps sustain the arts.'),
   Word('sustainable','지속 가능한','They need a sustainable plan.')])
+# 지나쌤 한마디
+S.append([Pill('지나쌤 한마디'),
+  Card([Text('“',90,th.acc,True,lh=0.9),
+        Text('내가 좋아하는 무용수들이 해외에서 초청되어 공연할 때, 표값이 엄청 비싸다고 느낄 때가 있어요.',42,bold=True,lh=1.5),
+        Text('그러면 공연 티켓 비용은 어떻게 결정되는 걸까요?',46,th.acc,True,lh=1.5),
+        Gap(8),
+        Text('이번 편에서는 그중 ‘비용’이 오르는 이유를 알아봐요.',40,lh=1.55),
+        Text('— 지나쌤',34,th.acc,True)])])
 # 13 한 줄 정리
 S.append([Pill('한 줄 정리'),Head(['생산성은 그대로인데',[('비용',True),('은 오른다',False)]],size=80),
   Card([Text('더 읽어 보기',32,th.acc,True),

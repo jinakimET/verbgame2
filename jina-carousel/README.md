@@ -10,7 +10,7 @@
 | `neo_no01_attention.py` | No.1 수준별 지문 네오 브루탈리즘 캐러셀 11장 |
 | `glass_no02_confirmation.py` | No.2 확증 편향의 함정 (주제 캐러셀 15장) |
 | `neo_no02_confirmation.py` | No.2 수준별 지문 11장 |
-| `glass_no03_baumol.py` | No.3 보몰의 비용 질병 (주제 캐러셀 14장) |
+| `glass_no03_baumol.py` | No.3 보몰의 비용 질병 (주제 캐러셀 15장) |
 | `neo_no03_baumol.py` | No.3 수준별 지문 11장 |
 | `data/suneung_sheet_by_question.csv` | 2024~2027 수능 18~45번 주제와 원문 확인 단어 |
 | `output/` | 렌더링 결과 PNG와 캡션 |
