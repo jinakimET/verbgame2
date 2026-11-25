@@ -1,7 +1,7 @@
 import sys; sys.path.insert(0,'.')
 from engine import *
-# 컬러칩 7: Charcoal #121212 · Warm White #FDF9EA · Performance Orange #FE5105
-th=Theme(base='#121212',blobs=['#FE5105','#B58B4C','#5A2A12'],acc='#FE5105',acc_txt='#121212',soft='#E6DCC8',dim=0.5)
+# 컬러칩 8: Court Green #0FA241 · Spruce Green #17411B · Tennis Yellow #ECF665
+th=Theme(base='#0A2410',blobs=['#0FA241','#6FA83A','#17411B'],acc='#ECF665',acc_txt='#0A1A0D',soft='#D4E6D0',dim=0.5)
 NO='No.3'
 S=[]
 # 1 표지
